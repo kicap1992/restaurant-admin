@@ -3,6 +3,7 @@ import 'package:stacked/stacked.dart';
 
 import '../../../../../app/themes/app_colors.dart';
 import '../../../../../app/themes/app_text.dart';
+import '../../../../../app/app.router.dart';
 import './meja_detail_view_model.dart';
 
 class MejaDetailView extends StatelessWidget {
@@ -27,6 +28,7 @@ class MejaDetailView extends StatelessWidget {
       ) {
         return WillPopScope(
           onWillPop: () async {
+            model.log.i('onWillPop ${model.globalVar.backPressed}');
             if (model.globalVar.backPressed == 'backNormal') {
               model.globalVar.backPressed = 'exitApp';
               return true;
@@ -37,8 +39,8 @@ class MejaDetailView extends StatelessWidget {
           },
           child: Scaffold(
             appBar: AppBar(
-              title: const Text('MejaDetailView',
-                  style: TextStyle(color: Colors.white)),
+              title: Text('Detail ${model.namaMeja}',
+                  style: const TextStyle(color: Colors.white)),
               backgroundColor: mainColor,
               leading: IconButton(
                 onPressed: () {
@@ -225,7 +227,9 @@ class MejaDetailView extends StatelessWidget {
                   Expanded(
                     child: GestureDetector(
                       onTap: () {
-                        model.log.i('Edit');
+                        // model.log.i('Edit');
+                        model.navigationService
+                            .navigateToMejaEditView(mejaId: mejaId);
                       },
                       child: const Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -258,6 +262,8 @@ class MejaDetailView extends StatelessWidget {
                       onTap: () {
                         model.log.i('List');
                         // model.navigationService.navigateToMakananListView();
+                        model.navigationService
+                            .navigateToMejaHistoryLogView(mejaId: mejaId);
                       },
                       child: const Column(
                         mainAxisAlignment: MainAxisAlignment.center,

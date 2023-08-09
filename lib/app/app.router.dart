@@ -138,14 +138,18 @@ class StackedRouter extends _i1.RouterBase {
       );
     },
     _i8.MejaEditView: (data) {
+      final args = data.getArgs<MejaEditViewArguments>(nullOk: false);
       return _i10.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i8.MejaEditView(),
+        builder: (context) =>
+            _i8.MejaEditView(key: args.key, mejaId: args.mejaId),
         settings: data,
       );
     },
     _i9.MejaHistoryLogView: (data) {
+      final args = data.getArgs<MejaHistoryLogViewArguments>(nullOk: false);
       return _i10.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i9.MejaHistoryLogView(),
+        builder: (context) =>
+            _i9.MejaHistoryLogView(key: args.key, mejaId: args.mejaId),
         settings: data,
       );
     },
@@ -174,6 +178,60 @@ class MejaDetailViewArguments {
 
   @override
   bool operator ==(covariant MejaDetailViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key && other.mejaId == mejaId;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode ^ mejaId.hashCode;
+  }
+}
+
+class MejaEditViewArguments {
+  const MejaEditViewArguments({
+    this.key,
+    required this.mejaId,
+  });
+
+  final _i10.Key? key;
+
+  final String mejaId;
+
+  @override
+  String toString() {
+    return '{"key": "$key", "mejaId": "$mejaId"}';
+  }
+
+  @override
+  bool operator ==(covariant MejaEditViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key && other.mejaId == mejaId;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode ^ mejaId.hashCode;
+  }
+}
+
+class MejaHistoryLogViewArguments {
+  const MejaHistoryLogViewArguments({
+    this.key,
+    required this.mejaId,
+  });
+
+  final _i10.Key? key;
+
+  final String mejaId;
+
+  @override
+  String toString() {
+    return '{"key": "$key", "mejaId": "$mejaId"}';
+  }
+
+  @override
+  bool operator ==(covariant MejaHistoryLogViewArguments other) {
     if (identical(this, other)) return true;
     return other.key == key && other.mejaId == mejaId;
   }
@@ -342,28 +400,34 @@ extension NavigatorStateExtension on _i15.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToMejaEditView([
+  Future<dynamic> navigateToMejaEditView({
+    _i10.Key? key,
+    required String mejaId,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return navigateTo<dynamic>(Routes.mejaEditView,
+        arguments: MejaEditViewArguments(key: key, mejaId: mejaId),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
         transition: transition);
   }
 
-  Future<dynamic> navigateToMejaHistoryLogView([
+  Future<dynamic> navigateToMejaHistoryLogView({
+    _i10.Key? key,
+    required String mejaId,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return navigateTo<dynamic>(Routes.mejaHistoryLogView,
+        arguments: MejaHistoryLogViewArguments(key: key, mejaId: mejaId),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -515,28 +579,34 @@ extension NavigatorStateExtension on _i15.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> replaceWithMejaEditView([
+  Future<dynamic> replaceWithMejaEditView({
+    _i10.Key? key,
+    required String mejaId,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return replaceWith<dynamic>(Routes.mejaEditView,
+        arguments: MejaEditViewArguments(key: key, mejaId: mejaId),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
         transition: transition);
   }
 
-  Future<dynamic> replaceWithMejaHistoryLogView([
+  Future<dynamic> replaceWithMejaHistoryLogView({
+    _i10.Key? key,
+    required String mejaId,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return replaceWith<dynamic>(Routes.mejaHistoryLogView,
+        arguments: MejaHistoryLogViewArguments(key: key, mejaId: mejaId),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
