@@ -1,9 +1,11 @@
+import 'package:reza_admin/ui/views/admin_ui/makanan_list/add_edit_makanan/add_edit_makanan_text_form_dialog/add_edit_makanan_text_form_dialog_view.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:stacked/stacked_annotations.dart';
 
 import '../services/global_var.dart';
 import '../services/http_services.dart';
 import '../services/my_easyloading.dart';
+import '../services/my_socket_io_client.dart';
 import '../services/other_function.dart';
 import '../ui/views/admin_ui/admin_index_tracking/admin_index_tracking_view.dart';
 import '../ui/views/admin_ui/akun_admin/akun_admin_view.dart';
@@ -12,6 +14,7 @@ import '../ui/views/admin_ui/makanan_list/detail_makanan/detail_makanan_view.dar
 import '../ui/views/admin_ui/makanan_list/makanan_list_view.dart';
 import '../ui/views/admin_ui/meja_list/meja_detail/meja_detail_view.dart';
 import '../ui/views/admin_ui/meja_list/meja_edit/meja_edit_view.dart';
+import '../ui/views/admin_ui/meja_list/meja_edit_status_dialog/meja_edit_status_dialog_view.dart';
 import '../ui/views/admin_ui/meja_list/meja_history_log/meja_history_log_view.dart';
 import '../ui/views/admin_ui/meja_list/meja_list_view.dart';
 import '../ui/views/admin_ui/pesanan_list/pesanan_list_view.dart';
@@ -38,9 +41,10 @@ import '../ui/views/splash_screen/splash_screen_view.dart';
     MaterialRoute(page: MejaEditView),
     MaterialRoute(page: MejaHistoryLogView),
   ],
-  // dialogs: [
-  //   StackedDialog(classType: AddSiswaDialogView),
-  // ],
+  dialogs: [
+    StackedDialog(classType: MejaEditStatusDialogView),
+    StackedDialog(classType: AddEditMakananTextFormDialogView),
+  ],
   dependencies: [
     LazySingleton(classType: NavigationService),
     LazySingleton(classType: DialogService),
@@ -52,6 +56,7 @@ import '../ui/views/splash_screen/splash_screen_view.dart';
     LazySingleton(classType: MyHttpServices),
     LazySingleton(classType: OtherFunction),
     LazySingleton(classType: GlobalVar),
+    LazySingleton(classType: MySocketIoClient),
   ],
   logger: StackedLogger(),
 )

@@ -371,8 +371,8 @@ class TopMenuWidget extends ViewModelWidget<DetailMakananViewModel> {
         SizedBox(
           width: double.infinity,
           height: MediaQuery.of(context).size.height * 0.35,
-          child: Image.network(
-            'https://a.cdn-hotels.com/gdcs/production0/d1513/35c1c89e-408c-4449-9abe-f109068f40c0.jpg?impolicy=fcrop&w=800&h=533&q=medium',
+          child: Image.asset(
+                                      'assets/nasi_goreng.jpg',
             fit: BoxFit.cover,
           ),
         ),

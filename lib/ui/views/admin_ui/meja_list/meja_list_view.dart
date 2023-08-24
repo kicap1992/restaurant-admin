@@ -55,10 +55,7 @@ class MejaListView extends StatelessWidget {
                     // initialUrl: 'https://rekam-medis.airlangga-it.com/',
                     javascriptMode: JavascriptMode.unrestricted,
                     onWebViewCreated: (WebViewController webViewController) {
-                      // _controller.complete(webViewController);
-                      // model.controllerCompleter.future
-                      //     .then((value) => model.webViewController = value);
-                      // model.controllerCompleter.complete(webViewController);
+                      model.webViewController = webViewController;
                     },
                     onProgress: (int progress) {
                       // model.log.i('WebView is loading (progress : $progress%)');
@@ -101,7 +98,7 @@ class MejaListView extends StatelessWidget {
                     },
                     onPageFinished: (String url) {
                       model.log.i('Page finished loading: $url');
-                      model.easyLoading.dismissLoading();
+                      model.easyLoading.dismiss();
                     },
                     gestureNavigationEnabled: true,
                     backgroundColor: const Color(0x00000000),
@@ -169,64 +166,89 @@ class MejaListView extends StatelessWidget {
                   height: 15,
                 ),
                 Expanded(
-                  child: ListView.builder(
-                    itemCount: 15,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      // make the color random between red and blue
-                      final color = index % 2 == 0 ? Colors.red : Colors.blue;
-                      String pesanStatus =
-                          index % 2 == 0 ? 'Dibooking' : 'Menunggu Pengesahan';
-                      return Card(
-                        color: color,
-                        child: ListTile(
-                          leading: CircleAvatar(
-                            backgroundColor: Colors.white,
-                            child: Text(
-                              index.toString(),
-                              style: regularTextStyle,
-                            ),
-                          ),
-                          title: Text(
-                            'Nama Pemesan',
-                            style: regularTextStyle.copyWith(
-                              fontSize: 18,
-                              color: Colors.white,
-                              fontStyle: FontStyle.italic,
-                            ),
-                          ),
-                          subtitle: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                '08:00.00 - 09:00.00',
-                                style: TextStyle(
-                                  color: Colors.white,
+                  child: model.isBusy
+                      ? const Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : ListView.builder(
+                          itemCount: model.reservasiMejaList.length,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            // make the color random between red and blue
+
+                            final color =
+                                model.reservasiMejaList[index].status ==
+                                        'booking'
+                                    ? Colors.red
+                                    : (model.reservasiMejaList[index].status ==
+                                            'Tidak Tersedia'
+                                        ? Colors.grey[600]
+                                        : Colors.green);
+                            String pesanStatus = model
+                                .reservasiMejaList[index].status!
+                                .toUpperCase();
+                            return Card(
+                              color: color,
+                              child: ListTile(
+                                leading: CircleAvatar(
+                                  backgroundColor: Colors.white,
+                                  child: Text(
+                                    model.reservasiMejaList[index].idMeja
+                                        .toString(),
+                                    style: regularTextStyle,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                pesanStatus,
-                                style: const TextStyle(
-                                  color: Colors.white,
+                                title: Text(
+                                  model.userModelList[index] != null
+                                      ? model.userModelList[index]!.nama ?? '-'
+                                      : '-',
+                                  style: regularTextStyle.copyWith(
+                                    fontSize: 18,
+                                    color: Colors.white,
+                                    fontStyle: FontStyle.italic,
+                                  ),
                                 ),
+                                subtitle: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      model.reservasiMejaList[index]
+                                              .jamBooking ??
+                                          '',
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    Text(
+                                      pesanStatus,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                trailing: const Icon(Icons.arrow_forward_ios,
+                                    color: Colors.white),
+                                onTap: () {
+                                  model.log.i('Meja 1');
+                                },
                               ),
-                            ],
-                          ),
-                          trailing: const Icon(Icons.arrow_forward_ios,
-                              color: Colors.white),
-                          onTap: () {
-                            model.log.i('Meja 1');
+                            );
                           },
                         ),
-                      );
-                    },
-                  ),
                 ),
                 const SizedBox(
                   height: 15,
                 ),
               ],
             ),
+            // floatingActionButton: FloatingActionButton(
+            //   onPressed: () async {
+            //     await model.webViewController!.reload();
+            //   },
+            //   backgroundColor: mainColor,
+            //   child: const Icon(Icons.add),
+            // ),
           ),
         );
       },

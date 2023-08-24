@@ -87,9 +87,9 @@ class MejaDetailView extends StatelessWidget {
                       style: regularTextStyle,
                       children: [
                         TextSpan(
-                          text: 'Tersedia',
+                          text: model.theBool ? 'Tidak Tersedia' : 'Tersedia',
                           style: regularTextStyle.copyWith(
-                            color: Colors.green,
+                            color: model.theBool ? Colors.red : Colors.green,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -145,58 +145,60 @@ class MejaDetailView extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: 2,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        // make the color random between red and blue
-                        const color = Colors.blue;
-                        String pesanStatus = 'Menunggu Pengesahan';
-                        return Card(
-                          color: color,
-                          child: ListTile(
-                            // leading: CircleAvatar(
-                            //   backgroundColor: Colors.white,
-                            //   child: Text(
-                            //     index.toString(),
-                            //     style: regularTextStyle,
-                            //   ),
-                            // ),
-                            title: Text(
-                              'Nama Pemesan',
-                              style: regularTextStyle.copyWith(
-                                fontSize: 18,
-                                color: Colors.white,
-                                fontStyle: FontStyle.italic,
-                              ),
-                            ),
-                            subtitle: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  '08:00.00 - 09:00.00',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                Text(
-                                  pesanStatus,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            trailing: const Icon(Icons.arrow_forward_ios,
-                                color: Colors.white),
-                            onTap: () {
-                              model.log.i('Meja 1');
-                            },
-                          ),
-                        );
-                      },
-                    ),
+                  const Expanded(
+                    child: SizedBox(),
+
+                    // ListView.builder(
+                    //   itemCount: 2,
+                    //   shrinkWrap: true,
+                    //   itemBuilder: (context, index) {
+                    //     // make the color random between red and blue
+                    //     const color = Colors.blue;
+                    //     String pesanStatus = 'Menunggu Pengesahan';
+                    //     return Card(
+                    //       color: color,
+                    //       child: ListTile(
+                    //         // leading: CircleAvatar(
+                    //         //   backgroundColor: Colors.white,
+                    //         //   child: Text(
+                    //         //     index.toString(),
+                    //         //     style: regularTextStyle,
+                    //         //   ),
+                    //         // ),
+                    //         title: Text(
+                    //           'Nama Pemesan',
+                    //           style: regularTextStyle.copyWith(
+                    //             fontSize: 18,
+                    //             color: Colors.white,
+                    //             fontStyle: FontStyle.italic,
+                    //           ),
+                    //         ),
+                    //         subtitle: Column(
+                    //           crossAxisAlignment: CrossAxisAlignment.start,
+                    //           children: [
+                    //             const Text(
+                    //               '08:00.00 - 09:00.00',
+                    //               style: TextStyle(
+                    //                 color: Colors.white,
+                    //               ),
+                    //             ),
+                    //             Text(
+                    //               pesanStatus,
+                    //               style: const TextStyle(
+                    //                 color: Colors.white,
+                    //               ),
+                    //             ),
+                    //           ],
+                    //         ),
+                    //         trailing: const Icon(Icons.arrow_forward_ios,
+                    //             color: Colors.white),
+                    //         onTap: () {
+                    //           model.log.i('Meja 1');
+                    //         },
+                    //       ),
+                    //     );
+                    //   },
+                    // ),
                   ),
                 ],
               ),
@@ -262,8 +264,12 @@ class MejaDetailView extends StatelessWidget {
                       onTap: () {
                         model.log.i('List');
                         // model.navigationService.navigateToMakananListView();
-                        model.navigationService
-                            .navigateToMejaHistoryLogView(mejaId: mejaId);
+                        // model.navigationService
+                        //     .navigateToMejaHistoryLogView(mejaId: mejaId);
+                        model.snackbarService.showSnackbar(
+                            message: 'Fitur ini belum tersedia',
+                            title: 'Info',
+                            duration: const Duration(seconds: 2));
                       },
                       child: const Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -292,6 +298,7 @@ class MejaDetailView extends StatelessWidget {
               backgroundColor: orangeColor,
               onPressed: () {
                 // model.navigationService.navigateToAddEditMakananView();
+                model.editStatus();
               },
               // create a add product button
               child: const Icon(

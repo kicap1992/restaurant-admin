@@ -30,6 +30,7 @@ class MejaEditView extends StatelessWidget {
                 'backPressed : ${model.globalVar.backPressed} in MejaEditView');
             if (model.globalVar.backPressed == 'backNormal') {
               // model.globalVar.backPressed = 'exitApp';
+              // model.globalVar.backPressed = 'backNormal';
               return true;
             }
             // model.quitApp(context);
@@ -44,7 +45,7 @@ class MejaEditView extends StatelessWidget {
               leading: IconButton(
                 onPressed: () {
                   if (model.globalVar.backPressed == 'backNormal') {
-                    model.globalVar.backPressed = 'exitApp';
+                    // model.globalVar.backPressed = 'exitApp';
                     model.navigationService.back();
                     // return true;
                   }

@@ -20,7 +20,7 @@ class LoginUserViewModel extends CustomBaseViewModel {
     globalVar.backPressed = 'cantBack';
     easyLoading.showLoading();
     await Future.delayed(const Duration(seconds: 2));
-    easyLoading.dismissLoading();
+    easyLoading.dismiss();
     setBusy(false);
     globalVar.backPressed = 'backNormal';
     notifyListeners();

@@ -9,7 +9,7 @@ class MyEasyLoading {
     );
   }
 
-  dismissLoading() {
+  dismiss() {
     EasyLoading.dismiss();
   }
 

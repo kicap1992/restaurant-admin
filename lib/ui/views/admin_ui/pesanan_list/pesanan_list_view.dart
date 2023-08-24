@@ -131,8 +131,8 @@ class PesananListView extends StatelessWidget {
                                       ),
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(10),
-                                        child: Image.network(
-                                          'https://a.cdn-hotels.com/gdcs/production0/d1513/35c1c89e-408c-4449-9abe-f109068f40c0.jpg?impolicy=fcrop&w=800&h=533&q=medium',
+                                        child: Image.asset(
+                                          'assets/nasi_goreng.jpg',
                                           height: 100,
                                           width: double.infinity,
                                           fit: BoxFit.fill,

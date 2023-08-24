@@ -6,7 +6,7 @@ import '../app/app.logger.dart';
 class MyHttpServices {
   final log = getLogger('MyHttpServices');
   final _options = BaseOptions(
-    baseUrl: dotenv.env['api_url']!,
+    baseUrl: dotenv.env['url']!,
     connectTimeout: const Duration(seconds: 120),
     receiveTimeout: const Duration(seconds: 120),
   );
@@ -20,14 +20,22 @@ class MyHttpServices {
   Future<Response> get(String path) async {
     try {
       return await _dio.get(path);
-    } on DioException {
+    } on DioException catch (e) {
+      log.e('error : $e');
       rethrow;
     }
   }
 
   Future<Response> postWithFormData(String path, FormData formData) async {
     try {
-      return await _dio.post(path, data: formData);
+      return await _dio.post(
+        path,
+        data: formData,
+        // method="POST" enctype="multipart/form-data">
+        options: Options(
+          contentType: 'multipart/form-data',
+        ),
+      );
     } on DioException {
       rethrow;
     }

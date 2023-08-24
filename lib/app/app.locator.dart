@@ -15,6 +15,7 @@ import 'package:stacked_shared/stacked_shared.dart';
 import '../services/global_var.dart';
 import '../services/http_services.dart';
 import '../services/my_easyloading.dart';
+import '../services/my_socket_io_client.dart';
 import '../services/other_function.dart';
 
 final locator = StackedLocator.instance;
@@ -36,4 +37,5 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => MyHttpServices());
   locator.registerLazySingleton(() => OtherFunction());
   locator.registerLazySingleton(() => GlobalVar());
+  locator.registerLazySingleton(() => MySocketIoClient());
 }

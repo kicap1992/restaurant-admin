@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:reza_admin/app/app.router.dart';
 import 'package:stacked/stacked.dart';
 
@@ -141,66 +142,94 @@ class MakananListView extends StatelessWidget {
                   height: 10,
                 ),
                 Expanded(
-                  child: Center(
-                    child: SingleChildScrollView(
-                      child: Wrap(
-                        spacing: 10,
-                        runSpacing: 10,
-                        children: [
-                          for (var i = 0; i < 10; i++)
-                            GestureDetector(
-                              onTap: () => model.goToDetailMakanan(),
-                              child: Container(
-                                width: MediaQuery.of(context).size.width * 0.46,
-                                color: Colors.white,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Image.network(
-                                      'https://a.cdn-hotels.com/gdcs/production0/d1513/35c1c89e-408c-4449-9abe-f109068f40c0.jpg?impolicy=fcrop&w=800&h=533&q=medium',
-                                      height: 150,
-                                      width: double.infinity,
-                                      fit: BoxFit.fill,
-                                    ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    const Padding(
-                                      padding: EdgeInsets.only(
-                                        left: 5,
-                                      ),
-                                      child: Text(
-                                        'Product Name',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
+                  child: model.isBusy
+                      ? const Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : (model.listMakanan.isEmpty
+                          ? const Center(
+                              child: Text('Data Kosong'),
+                            )
+                          : SingleChildScrollView(
+                              child: Wrap(
+                                spacing: 5,
+                                runSpacing: 10,
+                                // alignment: WrapAlignment.spaceAround,
+                                // crossAxisAlignment: WrapCrossAlignment.center,
+                                children: [
+                                  for (var i = 0;
+                                      i < model.listMakanan.length;
+                                      i++)
+                                    GestureDetector(
+                                      onTap: () => model.goToDetailMakanan(),
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                          left: 10,
+                                          // right: 5,
+                                        ),
+                                        child: Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.46,
+                                          color: Colors.white,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Image.network(
+                                                '${dotenv.env['url']}assets/makanan/${model.listMakanan[i].imgUrl}',
+                                                height: 150,
+                                                width: double.infinity,
+                                                fit: BoxFit.fill,
+                                              ),
+                                              // Image.asset(
+                                              //   'assets/nasi_goreng.jpg',
+                                              //   height: 150,
+                                              //   width: double.infinity,
+                                              //   fit: BoxFit.fill,
+                                              // ),
+                                              const SizedBox(
+                                                height: 5,
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                  left: 5,
+                                                ),
+                                                child: Text(
+                                                  model.listMakanan[i]
+                                                      .namaMakanan!,
+                                                  style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                height: 5,
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                  left: 5,
+                                                ),
+                                                child: Text(
+                                                  model.listMakanan[i]
+                                                      .deskripsiMakanan!,
+                                                  style: const TextStyle(
+                                                    color: Colors.grey,
+                                                  ),
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                height: 5,
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    const Padding(
-                                      padding: EdgeInsets.only(
-                                        left: 5,
-                                      ),
-                                      child: Text(
-                                        'Rp. 100.000',
-                                        style: TextStyle(
-                                          color: Colors.grey,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                  ],
-                                ),
+                                ],
                               ),
-                            ),
-                        ],
-                      ),
-                    ),
-                  ),
+                            )),
                 ),
               ],
             ),
